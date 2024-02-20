@@ -62,19 +62,21 @@ cv2.waitKey(0)
 print("5. Thresholding and applying morphological operations to the display region...")
 thresh = cv2.threshold(warped, 0, 255,
                        cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
-kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (1, 5))
+kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (1, 4))
 thresh = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel)
 cv2.imshow("Thresholded Image", thresh)
 cv2.waitKey(0)
 
 # Find contours of the digit regions
 print("6. Finding contours of the digit regions...")
-cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
-                        cv2.CHAIN_APPROX_SIMPLE)
-cnts = imutils.grab_contours(cnts)
-digitCnts = []
+cnts, _ = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+contour_image = image.copy()
+cv2.drawContours(contour_image, cnts, -1, (0, 255, 0), 2)  # Draw all the contours in green
+cv2.imshow("Contour Image", contour_image)
+cv2.waitKey(0)
 
 # Iterate over digit region contours
+digitCnts = []
 for c in cnts:
     (x, y, w, h) = cv2.boundingRect(c)
     if w >= 15 and (h >= 30 and h <= 40):
@@ -109,7 +111,7 @@ for c in digitCnts:
         area = (xB - xA) * (yB - yA)
 
         # Check if the segment is on
-        if total / float(area) > 0.5:
+        if total / float(area) > 0.47:
             on[i] = 1
 
     # Find the digit and draw on the output image
