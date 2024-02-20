@@ -21,6 +21,8 @@ DIGITS_LOOKUP = {
 # Load the example image
 print("1. Loading example image...")
 image = cv2.imread("example3.jpg")
+cv2.imshow("Example Image", image)
+cv2.waitKey(0)
 
 # Preprocess the image
 print("2. Preprocessing image...")
@@ -28,6 +30,8 @@ image = imutils.resize(image, height=500)
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 blurred = cv2.GaussianBlur(gray, (5, 5), 0)
 edged = cv2.Canny(blurred, 50, 200, 255)
+cv2.imshow("Edged Image", edged)
+cv2.waitKey(0)
 
 # Find contours of the display region
 print("3. Finding contours of the display region...")
@@ -50,6 +54,9 @@ for c in cnts:
 print("4. Extracting and applying perspective transform to the display region...")
 warped = four_point_transform(gray, displayCnt.reshape(4, 2))
 output = four_point_transform(image, displayCnt.reshape(4, 2))
+cv2.imshow("Warped Image", warped)
+cv2.imshow("Output Image", output)
+cv2.waitKey(0)
 
 # Threshold and apply morphological operations to the display region
 print("5. Thresholding and applying morphological operations to the display region...")
@@ -57,6 +64,8 @@ thresh = cv2.threshold(warped, 0, 255,
                        cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
 kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (1, 5))
 thresh = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel)
+cv2.imshow("Thresholded Image", thresh)
+cv2.waitKey(0)
 
 # Find contours of the digit regions
 print("6. Finding contours of the digit regions...")
