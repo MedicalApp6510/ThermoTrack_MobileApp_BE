@@ -20,7 +20,7 @@ DIGITS_LOOKUP = {
 
 # Load the example image
 print("1. Loading example image...")
-image = cv2.imread("example3.jpg")
+image = cv2.imread("2.jpg")
 cv2.imshow("Example Image", image)
 cv2.waitKey(0)
 
@@ -79,7 +79,7 @@ cv2.waitKey(0)
 digitCnts = []
 for c in cnts:
     (x, y, w, h) = cv2.boundingRect(c)
-    if w >= 15 and (h >= 30 and h <= 40):
+    if w >= 15 and (h >= 60 and h <= 125): # TODO: REFINE THIS NUM
         digitCnts.append(c)
 
 # Sort digit contours from left to right
@@ -87,6 +87,7 @@ digitCnts = contours.sort_contours(digitCnts, method="left-to-right")[0]
 digits = []
 
 # Iterate over each digit
+print("7. Current seven-segment display state:")
 for c in digitCnts:
     (x, y, w, h) = cv2.boundingRect(c)
     roi = thresh[y:y + h, x:x + w]
@@ -115,12 +116,21 @@ for c in digitCnts:
             on[i] = 1
 
     # Find the digit and draw on the output image
-    print("7. Current seven-segment display state:", on)
-    digit = DIGITS_LOOKUP[tuple(on)]
-    digits.append(digit)
-    cv2.rectangle(output, (x, y), (x + w, y + h), (0, 255, 0), 1)
-    cv2.putText(output, str(digit), (x - 10, y - 10),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.65, (0, 255, 0), 2)
+    try:
+        print("Number:", on)
+        digit = DIGITS_LOOKUP[tuple(on)]
+        digits.append(digit)
+        # Display the digit area
+        cv2.rectangle(output, (x, y), (x + w, y + h), (0, 255, 0), 1) # Green color for recognized digits
+        cv2.putText(output, str(digit), (x - 10, y - 10),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.65, (0, 255, 0), 2)
+    except KeyError:
+        print(KeyError);
+        digit = 'x'
+        digits.append(digit)
+        cv2.rectangle(output, (x, y), (x + w, y + h), (0, 0, 255), 1)  # Red color for unrecognized digits
+        cv2.putText(output, str(digit), (x - 10, y - 10),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.65, (0, 0, 255), 2)
 
 # Display recognition results
 print("8. Recognized digits:", digits)
