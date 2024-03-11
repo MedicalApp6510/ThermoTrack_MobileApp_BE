@@ -74,8 +74,10 @@ def process_image(image_url):
 
     # Threshold and apply morphological operations to the display region
     print("5. Thresholding and applying morphological operations to the display region...")
-    thresh = cv2.threshold(warped, 0, 255,
-                        cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
+    # thresh = cv2.threshold(warped, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
+    # set the const threshold
+    THRESHOLD_VALUE = 100  # change it by the case
+    thresh = cv2.threshold(warped, THRESHOLD_VALUE, 255, cv2.THRESH_BINARY_INV)[1]
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (1, 4))
     thresh = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel)
     # cv2.imshow("Thresholded Image", thresh)
