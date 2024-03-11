@@ -173,6 +173,5 @@ if __name__ == "__main__":
     # Process the image and print the result
     try:
         result = process_image(image_url)
-        print("Recognized digits:", result)
     except Exception as e:
         print("Error:", e)

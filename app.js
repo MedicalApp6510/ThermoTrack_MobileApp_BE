@@ -23,16 +23,11 @@ app.post('/process-image', (req, res) => {
     const pythonProcess = spawn('python3', ['./ImgToDigitTool/main.py', imageUrl]);
   
     // Capture script output
-    let result = '';
     let logs = '';
 
     pythonProcess.stdout.on('data', (data) => {
         const output = data.toString();
         logs += output;
-        
-        if (output.includes('8. Recognized digits:')) {
-            result += output;
-        }
     });
   
     // Handle errors
@@ -45,7 +40,7 @@ app.post('/process-image', (req, res) => {
     // When the script exits
     pythonProcess.on('exit', (code) => {
       // Send response with result and logs
-        res.json({ result: result, logs: logs });
+        res.json({ result: getResult(logs), logs: logs });
     });
 });
 
@@ -53,3 +48,16 @@ app.post('/process-image', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// Helper function
+function getResult(str) {
+    const regex = /Recognized digits: \[([^\]]+)\]/;
+    const match = str.match(regex);
+
+    if (match) {
+        const result = JSON.parse(`[${match[1].replace(/'/g, '"')}]`);
+        return result;
+    } else {
+        return "";
+    }
+}
