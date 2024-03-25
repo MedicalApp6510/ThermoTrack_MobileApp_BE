@@ -9,6 +9,7 @@ import numpy as np
 import ssl
 import warnings
 
+
 # Define mapping from seven-segment display states to digits
 DIGITS_LOOKUP = {
     (1, 1, 1, 0, 1, 1, 1): 0,
