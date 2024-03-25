@@ -7,7 +7,7 @@ The **Digitize and Visualize Data from Medical Devices** project aims to address
 The project involves converting numerical information displayed on analog gauge displays into digital data and transmitting it to a cloud-based database. The stored data will then be made accessible for visualization through Grafana. Furthermore, the project aims to apply machine learning techniques to predict future values or trends based on the collected data.
 
 
-## Project Approach
+## Project Approach 
 
 The core focus of this project lies in the process of converting numerical information displayed into digital data. We have devised a step-by-step approach to achieve this:
 
