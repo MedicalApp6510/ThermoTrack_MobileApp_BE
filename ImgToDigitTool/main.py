@@ -9,6 +9,9 @@ import numpy as np
 import ssl
 import warnings
 
+import json
+
+import requests
 # Define mapping from seven-segment display states to digits
 DIGITS_LOOKUP = {
     (1, 1, 1, 0, 1, 1, 1): 0,
@@ -25,37 +28,7 @@ DIGITS_LOOKUP = {
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-import json
 
-import requests
-
-
-# def ocr_space_file(filename, overlay=False, api_key='helloworld', language='eng', OCREngine='1'):
-#     """ OCR.space API request with local file.
-#         Python3.5 - not tested on 2.7
-#     :param filename: Your file path & name.
-#     :param overlay: Is OCR.space overlay required in your response.
-#                     Defaults to False.
-#     :param api_key: OCR.space API key.
-#                     Defaults to 'helloworld'.
-#     :param language: Language code to be used in OCR.
-#                     List of available language codes can be found on https://ocr.space/OCRAPI
-#                     Defaults to 'en'.
-#     :return: Result in JSON format.
-#     """
-#
-#     payload = {'isOverlayRequired': overlay,
-#                'apikey': api_key,
-#                'language': language,
-#                'OCREngine': OCREngine,
-#                }
-#     with open(filename, 'rb') as f:
-#         r = requests.post('https://api.ocr.space/parse/image',
-#                           files={filename: f},
-#                           data=payload,
-#                           )
-#     # return r.content.decode()
-#     return r.json()
 
 
 def ocr_space_url(url, overlay=False, api_key='helloworld', language='eng', OCREngine='2', filetype='JPG'):
@@ -84,13 +57,6 @@ def ocr_space_url(url, overlay=False, api_key='helloworld', language='eng', OCRE
                       )
     # return r.content.decode()
     return r.json()
-
-
-
-# # Use examples:
-# test_file = ocr_space_file(filename='1.jpg', language='eng', api_key='45ab054be488957', OCREngine='2')
-# # test_url = ocr_space_url(url='http://i.imgur.com/31d5L5y.jpg')
-# print(json.dumps(test_file, indent=4, ensure_ascii=False))
 
 
 # Main function
@@ -232,35 +198,26 @@ def process_image(image_url):
 #   Format: python main.py <image_url>                           #
 #   Example: python main.py https://example.com/image.jpg        #
 ##################################################################
-# if __name__ == "__main__":
-#     # Check if the correct number of command-line arguments is provided
-#     if len(sys.argv) != 2:
-#         print("Usage: python main.py <image_url>")
-#         sys.exit(1)
-#
-#     # Get the image URL from command-line arguments
-#     image_url = sys.argv[1]
-#
-#     # Process the image and print the result
-#     try:
-#         result = process_image(image_url)
-#     except Exception as e:
-#         print("Error:", e)
-
-
 if __name__ == "__main__":
-    # 调用OCR功能的代码
-    # test_file = ocr_space_file(filename='2.jpg', language='eng', api_key='45ab054be488957', OCREngine='2')
-    # test_url = ocr_space_url(url='https://imgur.com/a/3333')
-    test_url = ocr_space_url(url='https://i.redd.it/m84cd3haccay.jpg', language='eng', api_key='45ab054be488957',
-                             OCREngine='2')
+    # Check if the correct number of command-line arguments is provided
+    if len(sys.argv) != 2:
+        print("Usage: python main.py <image_url>")
+        sys.exit(1)
 
-    print(json.dumps(test_url, indent=4, ensure_ascii=False))
+    # Get the image URL from command-line arguments
+    image_url = sys.argv[1]
 
+    # Process the image and print the result
+    try:
+        result = process_image(image_url)
+    except Exception as e:
+        print("Error:", e)
+
+
+# if __name__ == "__main__":
+#     # test_file = ocr_space_file(filename='2.jpg', language='eng', api_key='45ab054be488957', OCREngine='2')
+#     # test_url = ocr_space_url(url='https://imgur.com/a/3333')
+#     test_url = ocr_space_url(url='https://i.redd.it/m84cd3haccay.jpg', language='eng', api_key='45ab054be488957',
+#                              OCREngine='2')
 #
-# #######
-#     import ocrspace
-#
-#     # api = ocrspace.API()
-#     # Or if you have a custom API host, API key or desired language, pass those:
-#     api = ocrspace.API(endpoint='https://i.imgur.com/nyolbsP.jpeg', api_key='45ab054be488957', language=ocrspace.Language.Croatian)
+#     print(json.dumps(test_url, indent=4, ensure_ascii=False))
