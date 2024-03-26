@@ -19,7 +19,7 @@ def detect_text_uri(uri):
             "https://cloud.google.com/apis/design/errors".format(response.error.message)
         )
 
-# detect_text_uri("https://i.redd.it/m84cd3haccay.jpg")
-# detect_text_uri("https://i.imgur.com/nyolbsP.jpeg")
 
-detect_text_uri("https://i.imgur.com/mOSCBb8.jpeg")
+# detect_text_uri("https://i.imgur.com/nyolbsP.jpeg") #345
+# detect_text_uri("https://i.imgur.com/mOSCBb8.jpeg")  #373
+detect_text_uri("https://i.imgur.com/1VkzeQO.jpeg")  #36.5
