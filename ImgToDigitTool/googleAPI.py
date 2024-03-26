@@ -23,5 +23,5 @@ def detect_text_uri(uri):
 # detect_text_uri("https://i.imgur.com/nyolbsP.jpeg") #345
 # detect_text_uri("https://i.imgur.com/mOSCBb8.jpeg")  #373
 # detect_text_uri("https://i.imgur.com/1VkzeQO.jpeg")  #36.5
-detect_text_uri("https://i.imgur.com/SaP2rHf.jpeg")  #35.9
+# detect_text_uri("https://i.imgur.com/SaP2rHf.jpeg")  #35.9
 
