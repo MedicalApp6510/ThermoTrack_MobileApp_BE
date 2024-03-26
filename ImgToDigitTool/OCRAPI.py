@@ -56,6 +56,6 @@ def ocr_space_file(filename, overlay=False, api_key='helloworld', language='eng'
 
 
 # Use examples:
-test_file = ocr_space_file(filename='5.jpg', language='eng', api_key='45ab054be488957', OCREngine='2')
+test_file = ocr_space_file(filename='2.jpg', language='eng', api_key='45ab054be488957', OCREngine='2')
 # test_url = ocr_space_url(url='http://i.imgur.com/31d5L5y.jpg')
 print(json.dumps(test_file, indent=4, ensure_ascii=False))
