@@ -158,7 +158,7 @@ def process_image(image_url):
     # Return the recognized digits
     return digits
 
-
+# test161
 ##################################################################
 #   You can use the following for local testing in the cmd line  #                 #
 #   Format: python main.py <image_url>                           #
