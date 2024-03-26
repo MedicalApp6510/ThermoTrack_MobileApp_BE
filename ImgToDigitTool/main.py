@@ -30,35 +30,35 @@ import json
 import requests
 
 
-def ocr_space_file(filename, overlay=False, api_key='helloworld', language='eng', OCREngine='1'):
-    """ OCR.space API request with local file.
-        Python3.5 - not tested on 2.7
-    :param filename: Your file path & name.
-    :param overlay: Is OCR.space overlay required in your response.
-                    Defaults to False.
-    :param api_key: OCR.space API key.
-                    Defaults to 'helloworld'.
-    :param language: Language code to be used in OCR.
-                    List of available language codes can be found on https://ocr.space/OCRAPI
-                    Defaults to 'en'.
-    :return: Result in JSON format.
-    """
+# def ocr_space_file(filename, overlay=False, api_key='helloworld', language='eng', OCREngine='1'):
+#     """ OCR.space API request with local file.
+#         Python3.5 - not tested on 2.7
+#     :param filename: Your file path & name.
+#     :param overlay: Is OCR.space overlay required in your response.
+#                     Defaults to False.
+#     :param api_key: OCR.space API key.
+#                     Defaults to 'helloworld'.
+#     :param language: Language code to be used in OCR.
+#                     List of available language codes can be found on https://ocr.space/OCRAPI
+#                     Defaults to 'en'.
+#     :return: Result in JSON format.
+#     """
+#
+#     payload = {'isOverlayRequired': overlay,
+#                'apikey': api_key,
+#                'language': language,
+#                'OCREngine': OCREngine,
+#                }
+#     with open(filename, 'rb') as f:
+#         r = requests.post('https://api.ocr.space/parse/image',
+#                           files={filename: f},
+#                           data=payload,
+#                           )
+#     # return r.content.decode()
+#     return r.json()
 
-    payload = {'isOverlayRequired': overlay,
-               'apikey': api_key,
-               'language': language,
-               'OCREngine': OCREngine,
-               }
-    with open(filename, 'rb') as f:
-        r = requests.post('https://api.ocr.space/parse/image',
-                          files={filename: f},
-                          data=payload,
-                          )
-    # return r.content.decode()
-    return r.json()
 
-
-def ocr_space_url(url, overlay=False, api_key='helloworld', language='eng', OCREngine='1'):
+def ocr_space_url(url, overlay=False, api_key='helloworld', language='eng', OCREngine='2', filetype='JPG'):
     """ OCR.space API request with remote file.
         Python3.5 - not tested on 2.7
     :param url: Image url.
@@ -76,7 +76,8 @@ def ocr_space_url(url, overlay=False, api_key='helloworld', language='eng', OCRE
                'isOverlayRequired': overlay,
                'apikey': api_key,
                'language': language,
-               'OCREngine': OCREngine
+               'OCREngine': OCREngine,
+               'filetype': filetype,
                }
     r = requests.post('https://api.ocr.space/parse/image',
                       data=payload,
@@ -86,10 +87,10 @@ def ocr_space_url(url, overlay=False, api_key='helloworld', language='eng', OCRE
 
 
 
-# Use examples:
-test_file = ocr_space_file(filename='1.jpg', language='eng', api_key='45ab054be488957', OCREngine='2')
-# test_url = ocr_space_url(url='http://i.imgur.com/31d5L5y.jpg')
-print(json.dumps(test_file, indent=4, ensure_ascii=False))
+# # Use examples:
+# test_file = ocr_space_file(filename='1.jpg', language='eng', api_key='45ab054be488957', OCREngine='2')
+# # test_url = ocr_space_url(url='http://i.imgur.com/31d5L5y.jpg')
+# print(json.dumps(test_file, indent=4, ensure_ascii=False))
 
 
 # Main function
@@ -249,6 +250,17 @@ def process_image(image_url):
 
 if __name__ == "__main__":
     # 调用OCR功能的代码
-    test_file = ocr_space_file(filename='2.jpg', language='eng', api_key='45ab054be488957', OCREngine='2')
-    # test_url = ocr_space_url(url='http://i.imgur.com/31d5L5y.jpg')
-    print(json.dumps(test_file, indent=4, ensure_ascii=False))
+    # test_file = ocr_space_file(filename='2.jpg', language='eng', api_key='45ab054be488957', OCREngine='2')
+    # test_url = ocr_space_url(url='https://imgur.com/a/3333')
+    test_url = ocr_space_url(url='https://i.redd.it/m84cd3haccay.jpg', language='eng', api_key='45ab054be488957',
+                             OCREngine='2')
+
+    print(json.dumps(test_url, indent=4, ensure_ascii=False))
+
+#
+# #######
+#     import ocrspace
+#
+#     # api = ocrspace.API()
+#     # Or if you have a custom API host, API key or desired language, pass those:
+#     api = ocrspace.API(endpoint='https://i.imgur.com/nyolbsP.jpeg', api_key='45ab054be488957', language=ocrspace.Language.Croatian)
