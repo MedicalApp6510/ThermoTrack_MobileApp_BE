@@ -176,6 +176,7 @@ def process_image(image_url):
                         cv2.FONT_HERSHEY_SIMPLEX, 0.65, (0, 255, 0), 2)
         except KeyError:
             print(KeyError);
+            # digit = 'y'
             digit = 'x'
             digits.append(digit)
             cv2.rectangle(output, (x, y), (x + w, y + h), (0, 0, 255), 1)  # Red color for unrecognized digits
