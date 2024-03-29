@@ -20,7 +20,7 @@ app.post('/process-image', (req, res) => {
     const imageUrl = req.body.imageUrl;
 
     // Spawn a child process to run the Python script
-    const pythonProcess = spawn('python', ['./ImgToDigitTool/googleAPI.py', imageUrl]);
+    const pythonProcess = spawn('python', ['./ImgToDigitTool/main.py', imageUrl]);
 
     // Capture script output
     let logs = '';

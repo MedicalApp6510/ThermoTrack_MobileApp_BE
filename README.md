@@ -32,7 +32,7 @@ The core focus of this project lies in the process of converting numerical infor
 2. **Install Required Packages:**
    - Use pip to install the necessary packages by running the following command in your terminal or command prompt:
      ```
-     pip install scipy opencv-python imutils
+     pip install scipy opencv-python imutils flask flask_cors google-cloud google-cloud-vision google-api-core
      ```
 
 3. **Run the Application:**
