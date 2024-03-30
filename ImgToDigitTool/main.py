@@ -1,4 +1,3 @@
-# Import necessary libraries
 import sys
 
 def detect_text_uri(uri):
