@@ -1,8 +1,1 @@
-opencv-python-headless
-imutils
-numpy
-google-cloud-vision
-google-api-core
-google-auth
-google-cloud
 googleapis-common-protos
