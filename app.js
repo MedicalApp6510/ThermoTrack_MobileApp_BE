@@ -7,7 +7,7 @@ import fetch from 'node-fetch';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const apiKey = process.env.GOOGLE_CLOUD_VISION_API_KEY; // 请确保将你的API密钥设置在环境变量中
+const apiKey = process.env.GOOGLE_CLOUD_VISION_API_KEY;
 
 console.log(apiKey);
 
@@ -20,8 +20,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/process-image', async (req, res) => {
-    console.log('Received image URL:', req.body.imageUrl); // 这将显示你从前端收到的imageUrl
-   const imageUrl = req.body.imageUrl;
+  const imageUrl = req.body.imageUrl;
   const url = `https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`;
   const requestBody = {
       requests: [
@@ -45,17 +44,17 @@ app.post('/process-image', async (req, res) => {
       });
 
       if (!response.ok) {
-         const errorBody = await response.json(); // 确保这是解析响应的唯一地方
+         const errorBody = await response.json();
          console.error('Vision API Error Response:', JSON.stringify(errorBody, null, 2));
-         return res.status(400).json({ error: errorBody }); // 发送错误响应并且return结束处理函数
+         return res.status(400).json({ error: errorBody });
       }
 
-    const jsonResult = await response.json(); // 这里解析成功响应
+    const jsonResult = await response.json();
 
 
-      // 提取并返回仅数字部分
+
       const fullTextAnnotation = jsonResult.responses[0]?.fullTextAnnotation?.text;
-      const matches = fullTextAnnotation.match(/\d+(\.\d+)?/); // 匹配数字，包括小数点
+      const matches = fullTextAnnotation.match(/\d+(\.\d+)?/);
       const numberText = matches ? matches[0] : 'No numbers found.';
 
       res.json({ number: numberText });

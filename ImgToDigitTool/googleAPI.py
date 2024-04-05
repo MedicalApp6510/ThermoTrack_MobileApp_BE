@@ -24,6 +24,5 @@ def detect_text_uri(uri):
 # # detect_text_uri("https://i.imgur.com/nyolbsP.jpeg") #345
 # detect_text_uri("https://i.imgur.com/mOSCBb8.jpeg")  #35.9
 # detect_text_uri("https://i.imgur.com/1VkzeQO.jpeg")  #36.5
-# detect_text_uri("https://i.imgur.com/Etd3sMv.jpeg")  #36.799但是是36.7
-# detect_text_uri("https://i.imgur.com/D40hVWo.jpeg")  #J.但是是36.5
+# detect_text_uri("https://i.imgur.com/Etd3sMv.jpeg")  #36.799 but 36.7
 detect_text_uri("https://i.imgur.com/D36FpVC.png")  #35.5
